@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { StyleSheet, Text, View, Button, Image, TextInput } from "react-native";
 
 function MenuItem(props) {
   // Keep track of quantity
   const [quantity, setQuantity] = useState(0);
   // TODO (part 3): add state for special instructions text
+  const textInputRef = useRef(null);
   const [instructions, setInstruction] = useState("");
   // Return JSX to render
   return (
@@ -44,11 +45,13 @@ function MenuItem(props) {
       <Text>Special Instructions: {instructions}</Text>
       <TextInput
         placeholder="Type instructions here"
+        ref = {textInputRef}
         onSubmitEditing={({ nativeEvent }) => {
           console.log(nativeEvent.text);
           // TODO (part 3): Update special instructions text
           setInstruction(nativeEvent.text);
-          nativeEvent.target.clear();
+          textInputRef.current.clear();
+          //nativeEvent.target.clear();
         }}
       />
     </View>
